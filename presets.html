@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Choose a Collection</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="presets-data.js"></script>
+</head>
+<body>
+<div class="page-wrap">
+    <nav class="navbar">
+        <a href="index.html">Menu</a>
+        <a href="calculator.html">Manual entry</a>
+    </nav>
+
+    <div class="sheet">
+        <div class="sheet-header">
+            <p class="eyebrow">Fleet Collection Estimator</p>
+            <h1 id="pageTitle">Choose a Collection</h1>
+        </div>
+
+        <div class="sheet-body">
+            <button class="back-link" onclick="location.href='index.html'">&larr; Back</button>
+            <p class="screen-label" id="categoryLabel"></p>
+            <div id="presetList"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const category = sessionStorage.getItem("category");
+
+    if (!category || !COLLECTION_PRESETS[category]) {
+        location.href = "index.html";
+    } else {
+        document.getElementById("categoryLabel").textContent = CATEGORY_LABELS[category];
+
+        const presets = COLLECTION_PRESETS[category];
+        document.getElementById("presetList").innerHTML = presets
+            .map((p, i) => `
+          <button class="menu-option" data-index="${i}">
+            <span class="menu-option-title">${p.name}</span>
+            <span class="menu-option-sub">${p.size} pieces &middot; 1 token per ${p.exchangeRate} duplicates</span>
+          </button>
+        `)
+            .join("");
+
+        document.querySelectorAll("#presetList .menu-option").forEach(btn => {
+            btn.addEventListener("click", () => {
+                const preset = presets[parseInt(btn.dataset.index)];
+                sessionStorage.setItem("presetToApply", JSON.stringify(preset));
+                location.href = "calculator.html";
+            });
+        });
+    }
+</script>
+</body>
+</html>

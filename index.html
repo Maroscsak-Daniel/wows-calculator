@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fleet Collection Estimator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="landing">
+<div class="page-wrap">
+
+
+    <div class="landing-hero">
+        <h1 class="landing-title">Fleet Collection Estimator</h1>
+        <p class="landing-tagline">Plan Your Collection Grind</p>
+        <p class="landing-hero-sub">Estimate how many containers you'll need to complete any collection.</p>
+    </div>
+
+    <div class="sheet landing-sheet">
+        <div class="sheet-body">
+            <p class="screen-label">How is this collection obtained?</p>
+
+            <div class="menu-options">
+                <button class="menu-option" id="costBasedBtn">
+                    <span class="menu-option-title">Cost-based</span>
+                    <span class="menu-option-sub">Purchased with premium currency</span>
+                </button>
+
+                <button class="menu-option" id="earnedInBattleBtn">
+                    <span class="menu-option-title">Earned in battle</span>
+                    <span class="menu-option-sub">Obtained through combat missions</span>
+                </button>
+
+                <button class="menu-option" id="manualEntryBtn">
+                    <span class="menu-option-title">Manual entry</span>
+                    <span class="menu-option-sub">Enter your own values</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <p class="attribution">Background artwork &copy; Wargaming.net &middot; used with permission &middot; not affiliated with or endorsed by Wargaming</p>
+</div>
+
+<script>
+    document.getElementById("costBasedBtn").addEventListener("click", () => {
+        sessionStorage.setItem("category", "costBased");
+        location.href = "presets.html";
+    });
+
+    document.getElementById("earnedInBattleBtn").addEventListener("click", () => {
+        sessionStorage.setItem("category", "earnedInBattle");
+        location.href = "presets.html";
+    });
+
+    document.getElementById("manualEntryBtn").addEventListener("click", () => {
+        sessionStorage.removeItem("category");
+        sessionStorage.removeItem("presetToApply");
+        sessionStorage.removeItem("presetCurrency");
+        location.href = "calculator.html";
+    });
+</script>
+</body>
+</html>

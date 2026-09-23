@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Collection Requisition Calculator</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+</head>
+<body>
+<div class="page-wrap">
+    <nav class="navbar">
+        <a href="index.html">Menu</a>
+        <a href="calculator.html" class="active">Manual entry</a>
+    </nav>
+
+    <div class="layout" id="layout">
+        <div class="sheet">
+            <div class="sheet-header">
+                <p class="eyebrow">Fleet Collection Estimator</p>
+                <h1>Containers Required</h1>
+            </div>
+
+            <div class="sheet-body">
+                <button class="back-link" id="changeCollectionBtn">&larr; Change collection</button>
+
+                <div class="field">
+                    <label for="collectionSize">Collection size (pieces)</label>
+                    <input id="collectionSize" type="number" value="60">
+                </div>
+
+                <div class="field">
+                    <label for="exchangeRate">Duplicates needed per exchange</label>
+                    <input id="exchangeRate" type="number" value="2">
+                </div>
+
+                <div class="field">
+                    <label for="piecesPerContainer">Pieces per container</label>
+                    <input id="piecesPerContainer" type="number" value="1">
+                </div>
+
+                <div class="field" id="costField">
+                    <label for="costPerContainer">Cost per container</label>
+                    <input id="costPerContainer" type="number" value="0" min="0" step="any">
+                    <p class="field-desc">Price of one container. Turns the container estimate into a cost estimate. Leave at 0 to skip.</p>
+                </div>
+
+                <details class="collapse" id="extraSettings">
+                    <summary>Extra settings</summary>
+                    <div class="collapse-body">
+                        <div class="field">
+                            <label for="startingOwned">Pieces already collected</label>
+                            <input id="startingOwned" type="number" value="0">
+                            <p class="field-desc">Unique pieces you already own from this collection.</p>
+                        </div>
+
+                        <div class="field">
+                            <label for="startingDuplicateProgress">Duplicates progress (toward next token)</label>
+                            <input id="startingDuplicateProgress" type="number" value="0">
+                            <p class="field-desc">Duplicates saved up so far that don't yet add up to a full token.</p>
+                        </div>
+
+                        <div class="field">
+                            <label for="startingBankedExchanges">Collection tokens already held</label>
+                            <input id="startingBankedExchanges" type="number" value="0">
+                            <p class="field-desc">Exchange tokens you hold right now, ready to redeem for missing pieces.</p>
+                        </div>
+                    </div>
+                </details>
+
+                <button id="runBtn" class="calc-btn">Calculate</button>
+
+                <div id="errorMessage"></div>
+            </div>
+        </div>
+
+        <div class="breakdown" id="breakdown">
+            <div class="sheet-header">
+                <p class="eyebrow">Distribution</p>
+                <h1>Simulation Breakdown</h1>
+            </div>
+            <div class="sheet-body">
+                <canvas id="histogram" height="220"></canvas>
+                <div id="results"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="sim.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
